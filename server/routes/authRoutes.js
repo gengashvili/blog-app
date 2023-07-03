@@ -8,7 +8,7 @@ const router = Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, image } = req.body;
 
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -20,6 +20,7 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       username,
       password: hashedPassword,
+      image, 
     });
 
     await newUser.save();

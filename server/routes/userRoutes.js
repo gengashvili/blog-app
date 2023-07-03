@@ -5,13 +5,13 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/",  async (req, res) => {
   try {
-    if (!req.isAdmin) {
-      return res
-        .status(403)
-        .json({ message: "Not authorized to access this resource" });
-    }
+    // if (!req.isAdmin) {
+    //   return res
+    //     .status(403)
+    //     .json({ message: "Not authorized to access this resource" });
+    // }
 
     const users = await User.find();
 
