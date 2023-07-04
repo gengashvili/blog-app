@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../api";
+import { UserContext } from "../UserContext";
 
-export default function CreatePost({ user }) {
+export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
-
   const [errorMessage, setErrorMessage] = useState(false);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleImageChange = async (e) => {
@@ -35,10 +36,10 @@ export default function CreatePost({ user }) {
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">Create a New Post</h1>
+    <main className="form-wrapper">
+      <h2 className="form-heading">Create a New Post</h2>
       {errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <div className="mb-4">
           <label htmlFor="title" className="block mb-1">
             Title:
@@ -92,6 +93,6 @@ export default function CreatePost({ user }) {
           Create Post
         </button>
       </form>
-    </div>
+    </main>
   );
 }

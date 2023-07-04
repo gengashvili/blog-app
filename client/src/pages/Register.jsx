@@ -36,7 +36,7 @@ export default function Register() {
   };
   return (
     <main className="form-wrapper">
-      <h1 className="form-heading">Register</h1>
+      <h2 className="form-heading">Register</h2>
       {errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <div className="mb-4">

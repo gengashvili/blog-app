@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  font-family: sans-serif;
+}
 .form-wrapper {
   @apply flex flex-col items-center justify-center my-10;
 }

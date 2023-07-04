@@ -68,6 +68,17 @@ export const getPosts = async () => {
   }
 };
 
+export const getPostById = async (postId) => {
+  try {
+    const response = await axiosInstance.get(`/posts/${postId}`);
+    return response.data.post;
+
+  } catch (error) {
+    console.error(error);
+    throw new Error("An error occurred while fetching the post.");
+  }
+};
+
 export const createPost = async (title, summary, image, content, author) => {
   try {
     const response = await axiosInstance.post("/posts/", {
@@ -82,3 +93,4 @@ export const createPost = async (title, summary, image, content, author) => {
     throw error.response.data;
   }
 };
+

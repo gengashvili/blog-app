@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("author", "username");
 
     res.status(200).json({ posts });
   } catch (error) {
@@ -19,7 +19,7 @@ router.get("/:postId", async (req, res) => {
   try {
     const { postId } = req.params;
 
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate("author", "username");
 
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
@@ -32,7 +32,7 @@ router.get("/:postId", async (req, res) => {
   }
 });
 
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { title, summary, image, content, author } = req.body;
 

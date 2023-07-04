@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
 import { getPosts } from "../api";
 import { UserContext } from "../UserContext";
+import PostCard from "../components/PostCard";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -21,23 +21,13 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  const handleCreatePost = () => {
-    navigate("/create-post");
-  };
-
-
   return (
-    <div>
+    <main className="">
       <h1>Posts</h1>
-      {posts.map((post) => (
-        <div key={post._id}>
-          <h2>{post.title}</h2>
-          <p>{post.summary}</p>
-          <p>Author: {post.author}</p>
-          <p>Created At: {post.createdAt}</p>
-        </div>
-      ))}
-      <button onClick={handleCreatePost}>Create Post</button>
-    </div>
+      {posts.slice().reverse().map((post) => (
+          <PostCard post={post} key={post._id} />
+        ))}
+      <button onClick={() => navigate("/create-post")}>Create Post</button>
+    </main>
   );
 }

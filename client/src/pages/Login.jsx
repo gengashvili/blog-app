@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <main className="form-wrapper">
-      <h1 className="form-heading">Login</h1>
+      <h2 className="form-heading">Login</h2>
       {errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <div className="mb-4">

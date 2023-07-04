@@ -5,7 +5,7 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-router.get("/",  async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     // if (!req.isAdmin) {
     //   return res
@@ -22,9 +22,15 @@ router.get("/",  async (req, res) => {
   }
 });
 
-router.get("/me", authMiddleware, async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
+    const { userId } = req.params;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
 
     res.status(200).json({ user });
   } catch (error) {
@@ -33,7 +39,7 @@ router.get("/me", authMiddleware, async (req, res) => {
   }
 });
 
-router.put("/me", authMiddleware, async (req, res) => {
+router.put("/me", async (req, res) => {
   try {
     const { username, password, image } = req.body;
 
@@ -59,7 +65,7 @@ router.put("/me", authMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/me", authMiddleware, async (req, res) => {
+router.delete("/me", async (req, res) => {
   try {
     const user = await User.findById(req.userId);
 
