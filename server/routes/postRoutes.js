@@ -34,14 +34,14 @@ router.get("/:postId", async (req, res) => {
 
 router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { title, summary, image, content } = req.body;
+    const { title, summary, image, content, author } = req.body;
 
     const newPost = new Post({
       title,
       summary,
       image,
       content,
-      author: req.userId,
+      author,
     });
 
     await newPost.save();

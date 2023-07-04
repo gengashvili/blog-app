@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-.register-input{
-    @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500;
+.form-wrapper {
+  @apply flex flex-col items-center justify-center my-10;
+}
+.form-heading {
+  @apply mb-4 text-2xl font-bold;
 }
 
-.register-btn{
-    @apply w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500;
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.form-btn {
+  @apply w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500;
 }

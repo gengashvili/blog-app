@@ -2,7 +2,7 @@ import { verify } from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
   try {
-    const authorizationHeader = req.header("Authorization");
+    const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
       throw new Error("Authorization header is missing");
     }

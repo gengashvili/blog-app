@@ -1,15 +1,15 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../api";
-import { UserContext } from "../UserContext";
+import { createPost } from "../api";
 
-export default function Register() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export default function CreatePost({ user }) {
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
+  const [content, setContent] = useState("");
   const [image, setImage] = useState("");
+
   const [errorMessage, setErrorMessage] = useState(false);
   const navigate = useNavigate();
-  const { user, updateUser } = useContext(UserContext);
 
   const handleImageChange = async (e) => {
     const file = await e.target.files[0];
@@ -25,45 +25,56 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await registerUser(username, password, image);
+      const { _id: author } = user;
+      await createPost(title, summary, image, content, author);
       setErrorMessage(false);
-      const { token } = response;
-      updateUser(response.newUser);
       navigate("/");
     } catch (error) {
       setErrorMessage(error.message || "An error occurred");
     }
   };
+
   return (
-    <main className="form-wrapper">
-      <h1 className="form-heading">Register</h1>
+    <div className="max-w-md mx-auto">
+      <h1 className="mb-4 text-3xl font-bold">Create a New Post</h1>
       {errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
+      <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="username" className="block mb-1">
-            Username:
+          <label htmlFor="title" className="block mb-1">
+            Title:
           </label>
           <input
             type="text"
-            id="username"
-            value={username}
+            id="title"
+            value={title}
             required
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             className="input"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="password" className="block mb-1">
-            Password:
+          <label htmlFor="summary" className="block mb-1">
+            Summary:
           </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
+          <textarea
+            id="summary"
+            value={summary}
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setSummary(e.target.value)}
             className="input"
-          />
+          ></textarea>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="content" className="block mb-1">
+            Content:
+          </label>
+          <textarea
+            id="content"
+            value={content}
+            required
+            onChange={(e) => setContent(e.target.value)}
+            className="input"
+          ></textarea>
         </div>
         <div className="mb-4">
           <label htmlFor="image" className="block mb-1">
@@ -78,9 +89,9 @@ export default function Register() {
           />
         </div>
         <button type="submit" className="form-btn">
-          Register
+          Create Post
         </button>
       </form>
-    </main>
+    </div>
   );
 }

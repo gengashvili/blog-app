@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       username,
       password: hashedPassword,
-      image, 
+      image,
     });
 
     await newUser.save();
@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token });
+    res.status(200).json({ newUser });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "An error occurred" });
@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token });
+    res.status(200).json({ user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "An error occurred" });
