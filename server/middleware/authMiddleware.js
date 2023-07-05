@@ -1,4 +1,4 @@
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
 
     const token = authorizationHeader.split(" ")[1];
 
-    const decodedToken = verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
     req.userId = decodedToken.userId;
 
