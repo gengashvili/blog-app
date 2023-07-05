@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:postId", authMiddleware, async (req, res) => {
+router.put("/:postId",  async (req, res) => {
   try {
     const { postId } = req.params;
     const { title, summary, image, content } = req.body;
@@ -64,11 +64,6 @@ router.put("/:postId", authMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    if (post.author.toString() !== req.userId) {
-      return res
-        .status(403)
-        .json({ message: "Not authorized to update this post" });
-    }
 
     post.title = title || post.title;
     post.summary = summary || post.summary;
@@ -84,7 +79,7 @@ router.put("/:postId", authMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/:postId", authMiddleware, async (req, res) => {
+router.delete("/:postId",  async (req, res) => {
   try {
     const { postId } = req.params;
 
@@ -94,11 +89,6 @@ router.delete("/:postId", authMiddleware, async (req, res) => {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    if (post.author.toString() !== req.userId) {
-      return res
-        .status(403)
-        .json({ error: "Not authorized to delete this post" });
-    }
 
     await Post.deleteOne({ _id: postId });
 
