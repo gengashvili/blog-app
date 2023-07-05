@@ -25,7 +25,7 @@ export default function Home() {
     <main className="flex flex-col">
       <h2 className="mx-auto my-4 text-4xl w-fit">Recent Blogs</h2>
       {user && <button className="p-2 mx-auto my-2 text-2xl text-white bg-green-700 rounded-lg w-fit" onClick={() => navigate("/create-post")}>Create a post</button>}
-      {posts.slice().reverse().map((post) => (
+      {posts && posts.slice().reverse().map((post) => (
           <PostCard post={post} key={post._id} />
         ))}
     </main>
